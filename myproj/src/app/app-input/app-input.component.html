@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+  <title>CSCI HW8</title>
+
+</head>
+<body>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="node_modules/chart.js/src/chart.js"></script>
+
+<div class="shadow card rounded main_container mt-2" style="border-color: black">
+  <div class="main_header">Weather Search</div>
+  <div class="main_form">
+    <form [formGroup]="inputForm">
+      <div class="form-group row">
+        <label for="inputStreet" class="col-sm-3 col-form-label">Street <span style="color: red">*</span></label>
+        <div class="col-sm-8">
+          <input matInput type="text" class="form-control" id="inputStreet" formControlName="inputStreet" placeholder="Enter Street Name" style="border-color: black" required>
+          <div *ngIf="inputStreet.invalid && (inputStreet.dirty || inputStreet.touched)" class="form-warning">
+            <div *ngIf="inputStreet.errors.required">
+              <span style="color: red; font-size: small"> Please enter a street. </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputCity" class="col-sm-3 col-form-label">City <span style="color: red">*</span></label>
+        <div class="col-sm-8">
+          <input matInput type="text" class="form-control" id="inputCity" formControlName="inputCity" placeholder="Enter City Name" style="border-color: black" required [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let city of autoCities" [value]="city" style="background-color: white; color: black">
+              {{ city }}
+            </mat-option>
+          </mat-autocomplete>
+          <div *ngIf="inputCity.invalid && (inputCity.dirty || inputCity.touched)" class="form-warning">
+            <div *ngIf="inputCity.errors.required">
+              <span style="color: red; font-size: small"> Please enter a city. </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputState" class="col-sm-3 col-form-label">State <span style="color: red">*</span></label>
+        <div class="col-sm-8">
+          <select class="custom-select col-sm-6" id="inputState" formControlName="inputState" [(ngModel)]="defaultStateVal">
+            <option selected value="default">Select State</option>
+            <option value="Alabama">Alabama</option>
+            <option value="Alaska">Alaska</option>
+            <option value="Arizona">Arizona</option>
+            <option value="Arkansas">Arkansas</option>
+            <option value="California">California</option>
+            <option value="Colorado">Colorado</option>
+            <option value="Connecticut">Connecticut</option>
+            <option value="Delaware">Delaware</option>
+            <option value="District Of Columbia">District Of Columbia</option>
+            <option value="Florida">Florida</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Hawaii">Hawaii</option>
+            <option value="Idaho">Idaho</option>
+            <option value="Illinois">Illinois</option>
+            <option value="Indiana">Indiana</option>
+            <option value="Iowa">Iowa</option>
+            <option value="Kansas">Kansas</option>
+            <option value="Kentucky">Kentucky</option>
+            <option value="Louisiana">Louisiana</option>
+            <option value="Maine">Maine</option>
+            <option value="Maryland">Maryland</option>
+            <option value="Massachusetts">Massachusetts</option>
+            <option value="Michigan">Michigan</option>
+            <option value="Minnesota">Minnesota</option>
+            <option value="Mississippi">Mississippi</option>
+            <option value="Missouri">Missouri</option>
+            <option value="Montana">Montana</option>
+            <option value="Nebraska">Nebraska</option>
+            <option value="Nevada">Nevada</option>
+            <option value="New Hampshire">New Hampshire</option>
+            <option value="New Jersey">New Jersey</option>
+            <option value="New Mexico">New Mexico</option>
+            <option value="New York">New York</option>
+            <option value="North Carolina">North Carolina</option>
+            <option value="North Dakota">North Dakota</option>
+            <option value="Ohio">Ohio</option>
+            <option value="Oklahoma">Oklahoma</option>
+            <option value="Oregon">Oregon</option>
+            <option value="Pennsylvania">Pennsylvania</option>
+            <option value="Rhode Island">Rhode Island</option>
+            <option value="South Carolina">South Carolina</option>
+            <option value="South Dakota">South Dakota</option>
+            <option value="Tennessee">Tennessee</option>
+            <option value="Texas">Texas</option>
+            <option value="Utah">Utah</option>
+            <option value="Vermont">Vermont</option>
+            <option value="Virginia">Virginia</option>
+            <option value="Washington">Washington</option>
+            <option value="West Virginia">West Virginia</option>
+            <option value="Wisconsin">Wisconsin</option>
+            <option value="Wyoming">Wyoming</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="inputCheckBox" (change)="changeInputCheckBox()">
+            <label class="form-check-label" for="inputCheckBox">
+              Current location
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <button type="submit" class="btn main_button ml-sm-4" id="ButtonSearch" [disabled]="!inputFormValid" (click)="clickSearch()">
+          <i class="material-icons">search</i> Search
+        </button>
+        <button type="reset" class="btn main_button ml-sm-3" id="ButtonClear" (click)="clearForm()">
+          <i class="material-icons">clear_all</i> Clear
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="mt-4 mb-4 container" id="btnResFav">
+  <div class="row justify-content-md-center" style="text-align: center">
+    <button type="button" id="ButtonRes" [class]="btnResCls" (click)="clickBtnRes()">
+      Results
+    </button>
+    <button type="button" id="ButtonFav" [class]="btnFavCls" (click)="clickBtnFav()">
+      Favorites
+    </button>
+  </div>
+</div>
+
+<!--<div class="p-1 mb-3 container" id="progressContainer">-->
+<!--  <div class="progress">-->
+<!--    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div id="weatherResults" class="mt-8 mb-8 container" #weatherResults *ngIf="showResults && submitted">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="current-tab" data-toggle="tab" href="#cur" role="tab" aria-controls="cur" aria-selected="true" style="color: black">Current</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="hourly-tab" data-toggle="tab" href="#hour" role="tab" aria-controls="hour" aria-selected="false" style="color: black">Hourly</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="weekly-tab" data-toggle="tab" href="#week" role="tab" aria-controls="week" aria-selected="false" style="color: black">Weekly</a>
+    </li>
+<!--    <li>-->
+<!--      <img class="pull-right" src="https://cdn.pixabay.com/photo/2017/02/16/10/20/target-2070972_960_720.png" width="10%" id="eye" >-->
+<!--    </li>-->
+  </ul>
+  <div class="tab-content mb-5" id="myTabContent">
+    <!--  current tab   -->
+    <div class="tab-pane fade show active" id="cur" role="tabpanel" aria-labelledby="current-tab">
+      <div class="card rounded container_cur mt-lg-5" style="width: 70%; margin: auto">
+        <div style="margin: auto; width: 90%; height: 80%">
+            <div class="row">
+              <div class="col-lg-7">
+                <div class="row mt-4 ml-2" style="font-size: 32px;"> {{city}} </div>
+                <div class="row mt-2 ml-2" style="font-size: 32px; color: gray"> {{timezone}} </div>
+                <div class="row mt-2 ml-2" style="font-size: 42px;">
+                  <div> {{curTemp}} </div>
+                  <div><img src="https://cdn3.iconfinder.com/data/icons/virtual-notebook/16/button_shape_oval-512.png" width="15" height="15" class="align-top mt-1"></div>
+                  <div> F</div>
+                </div>
+                <div class="row mt-2 ml-2" style="font-size: 26px;"> {{curSum}} </div>
+              </div>
+              <div class="col-lg-4 ml-auto mb-auto mt-auto">
+                <div>
+                  <img #sealImgBox width="80%" src="" class="round" [src]="sealImg">
+                </div>
+              </div>
+            </div>
+          <div class="row mt-4 ml-2">
+            <div class="col">
+              <img src="https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-16-512.png" width="30" height="30" title="Humidity" data-toggle="tooltip">
+            </div>
+            <div class="col">
+              <img src="https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-25-512.png" width="30" height="30" title="Pressure" data-toggle="tooltip">
+            </div>
+            <div class="col">
+              <img src="https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-27-512.png" width="30" height="30" title="WindSpeed" data-toggle="tooltip">
+            </div>
+            <div class="col">
+              <img src="https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-30-512.png" width="30" height="30" title="Visibility" data-toggle="tooltip">
+            </div>
+            <div class="col">
+              <img src="https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-28-512.png" width="30" height="30" title="CloudCover" data-toggle="tooltip">
+            </div>
+            <div class="col">
+              <img src="https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-24-512.png" width="30" height="30" title="Ozone" data-toggle="tooltip">
+            </div>
+          </div>
+          <div class="row ml-2 mb-2">
+            <div class="col"> {{curhum}} </div>
+            <div class="col"> {{curprs}} </div>
+            <div class="col"> {{curwid}} </div>
+            <div class="col"> {{curvib}} </div>
+            <div class="col"> {{curcld}} </div>
+            <div class="col"> {{curozo}} </div>
+          </div>
+        </div>
+      </div>
+<!---->
+    </div>
+    <!--  hourly tab   -->
+    <div class="tab-pane fade" id="hour" role="tabpanel" aria-labelledby="hourly-tab">
+      <div class="row mt-6">
+        <div class="col-6">
+          <select class="custom-select" id="hourMenu" (change)="updateHourChart()" #hourMenu>
+            <option selected value="temperature"> Temperature </option>
+            <option value="pressure"> Pressure </option>
+            <option value="humidity"> Humidity </option>
+            <option value="ozone"> Ozone </option>
+            <option value="visibility"> Visibility </option>
+            <option value="wind speed"> Wind Speed </option>
+          </select>
+        </div>
+      </div>
+      <div class="mt-3">
+        <div style="display: block">
+          <canvas baseChart
+                  [datasets]="hourlyChartData"
+                  [labels]="hourlyChartLabels"
+                  [options]="hourlyChartOptions"
+                  [legend]="hourlyChartLegend"
+                  [chartType]="hourlyChartType">
+          </canvas>
+        </div>
+      </div>
+<!---->
+    </div>
+    <!--  weekly tab   -->
+    <div class="tab-pane fade" id="week" role="tabpanel" aria-labelledby="weekly-tab">
+      <div class="mt-5">
+        <div id="chartContainer" style="width: 100%;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  pop modal  -->
+<ng-template #popCard let-modal>
+  <div class="modal-header" style="background-color: rgb(92, 134, 161)">
+    <h4 class="modal-title" id="modal-basic-title"> {{cardDate}} </h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="background-color: rgb(127, 202, 237)">
+    <div class="row">
+      <div class="col-lg-7">
+        <div class="row mt-4 ml-2" style="font-size: 28px;"> {{city}} </div>
+        <div class="row mt-2 ml-2" style="font-size: 32px;">
+          <div> {{cardTemp}} </div>
+          <div><img src="https://cdn3.iconfinder.com/data/icons/virtual-notebook/16/button_shape_oval-512.png" width="10" height="10" class="align-top mt-1"></div>
+          <div> F</div>
+        </div>
+        <div class="row mt-2 ml-2" style="font-size: 18px;"> {{cardSum}} </div>
+      </div>
+      <div class="col-lg-4 ml-auto mb-auto mt-auto">
+        <div>
+          <img #sealImgBox width="80%" class="round" [src]="cardIconSrc">
+        </div>
+      </div>
+    </div>
+    <hr/>
+    <div class="container col-lg-6 mr-2">
+      <p style="margin: auto">Precipitation: {{cardPrep}} </p>
+      <p style="margin: auto">Chance of Rain: {{cardRain}} % </p>
+      <p style="margin: auto">Wind Speed: {{cardWind}} mph </p>
+      <p style="margin: auto">Humidity: {{cardHumd}} % </p>
+      <p style="margin: auto">Visibility: {{cardVisb}} miles </p>
+    </div>
+  </div>
+</ng-template>
+
+</body>
+</html>
