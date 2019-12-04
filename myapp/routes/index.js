@@ -23,7 +23,7 @@ router.get('/userloc', function (req, res) {
 /* GET city autocomplete. */
 router.get('/cityauto', function (req, res) {
   var xmlhttp = new XMLHttpRequest();
-  var apikey = "AIzaSyAFL3mwNWBsgsYdqTfcQsfRP8e60Vjda28";
+  var apikey = "";
   var url1 = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=";
   var url2 = "&types=(cities)&lan guage=en&key=";
   var input = req.query['input'];
@@ -40,8 +40,8 @@ router.get('/cityauto', function (req, res) {
 /* GET city photo. */
 router.get('/cityphoto', function (req, res) {
   var xmlhttp = new XMLHttpRequest();
-  var apikey = "AIzaSyAFL3mwNWBsgsYdqTfcQsfRP8e60Vjda28";
-  var engid = "003599467955550038192:eneitqk6ysv";
+  var apikey = "";
+  var engid = "";
   var url1 = "https://www.googleapis.com/customsearch/v1?q=";
   var url2 = "&cx=";
   // var url3 = "&imgSize=medium&imgType=news&num=1&searchType=image&key=";
@@ -60,7 +60,7 @@ router.get('/cityphoto', function (req, res) {
 /* GET search geocode. */
 router.get('/search/geocode', function (req, res) {
   var xmlhttp = new XMLHttpRequest();
-  var apikey = "AIzaSyAFL3mwNWBsgsYdqTfcQsfRP8e60Vjda28";
+  var apikey = "";
   var url1 = "https://maps.googleapis.com/maps/api/geocode/json?address=";
   var url2 = "&key=";
   var input = [req.query['city'], req.query['state']].join("+");
@@ -77,7 +77,7 @@ router.get('/search/geocode', function (req, res) {
 /* GET search weather. */
 router.get('/search/weather', function (req, res) {
   var xmlhttp = new XMLHttpRequest();
-  var apikey = "e2520faa3b19b2ea6ff4bb4ee4cb89a8";
+  var apikey = "";
   var url1 = "https://api.darksky.net/forecast/";
   var url2 = "/";
   var input = req.query['lat'] + "," + req.query['lng'];
