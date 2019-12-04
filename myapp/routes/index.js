@@ -16,7 +16,7 @@ router.get('/userloc', function (req, res) {
     var loc = JSON.parse(xmlhttp.responseText);
     res.send(loc);
   } else {
-    res.send("Not Found")
+    res.send("Not Found");
   }
 });
 
@@ -33,26 +33,27 @@ router.get('/cityauto', function (req, res) {
     var resJson = JSON.parse(xmlhttp.responseText);
     res.send(resJson);
   } else {
-    res.send("Not Found")
+    res.send("Not Found");
   }
 });
 
-/* GET state seal. */
-router.get('/stateseal', function (req, res) {
+/* GET city photo. */
+router.get('/cityphoto', function (req, res) {
   var xmlhttp = new XMLHttpRequest();
   var apikey = "AIzaSyAFL3mwNWBsgsYdqTfcQsfRP8e60Vjda28";
   var engid = "003599467955550038192:eneitqk6ysv";
   var url1 = "https://www.googleapis.com/customsearch/v1?q=";
-  var url2 = "%20State%20Seal&cx=";
-  var url3 = "&imgSize=large&imgType=news&num=1&searchType=image&key=";
-  var input = req.query['state'];
+  var url2 = "&cx=";
+  // var url3 = "&imgSize=medium&imgType=news&num=1&searchType=image&key=";
+  var url3 = "&imgSize=huge&imgType=news&num=8&searchType=image&key=";
+  var input = req.query['city'];
   xmlhttp.open("GET", url1 + input + url2 + engid + url3 + apikey, false);
   xmlhttp.send();
   if(xmlhttp.readyState === 4 && xmlhttp.status === 200){
     var resJson = JSON.parse(xmlhttp.responseText);
     res.send(resJson);
   } else {
-    res.send("Not Found")
+    res.send("Not Found");
   }
 });
 
@@ -62,14 +63,14 @@ router.get('/search/geocode', function (req, res) {
   var apikey = "AIzaSyAFL3mwNWBsgsYdqTfcQsfRP8e60Vjda28";
   var url1 = "https://maps.googleapis.com/maps/api/geocode/json?address=";
   var url2 = "&key=";
-  var input = [req.query['street'], req.query['city'], req.query['state']].join("+");
+  var input = [req.query['city'], req.query['state']].join("+");
   xmlhttp.open("GET", url1 + input + url2 + apikey, false);
   xmlhttp.send();
   if(xmlhttp.readyState === 4 && xmlhttp.status === 200){
     var resJson = JSON.parse(xmlhttp.responseText);
     res.send(resJson);
   } else {
-    res.send("Not Found")
+    res.send("Not Found");
   }
 });
 
@@ -89,7 +90,7 @@ router.get('/search/weather', function (req, res) {
     var resJson = JSON.parse(xmlhttp.responseText);
     res.send(resJson);
   } else {
-    res.send("Not Found")
+    res.send("Not Found");
   }
 });
 

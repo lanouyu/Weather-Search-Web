@@ -15,6 +15,7 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import { ChartsModule } from 'ng2-charts';
 import { DatePipe } from '@angular/common'
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 
 @NgModule({
   declarations: [
